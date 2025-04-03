@@ -1,6 +1,6 @@
 from pymilvus import MilvusClient
 
-import util.config_util
+import config_util
 
 
 class MilvusConnection:
