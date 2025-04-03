@@ -20,24 +20,14 @@ def create_prompt(query, context_docs):
 
 
 def rag_query(query):
-    # 用户输入的问题
-    # query = "尽净露天机。只恐时人自执迷是那首诗里面的"
-
+    # 从milvus向量库查询最符合的数据
     data = serch_data_from_milvus(query)
-    print(data)
-
+    # 格式化查询的文档格式
     retrieved_docs = [hit.get('entity').get('text') for result in data for hit in result]
-    print(retrieved_docs)
-
     # 构造提示词
     prompt = create_prompt(query, retrieved_docs)
-
-    chatLLM = current_app.config.get('CHAT_LLM')
-
     # 调用大模型生成回答
+    chatLLM = current_app.config.get('CHAT_LLM')
     response = chatLLM.invoke(prompt)
-
-    # 输出结果
-    print("模型的回答：", response)
-
+    print(response)
     return response
