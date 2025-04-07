@@ -49,9 +49,3 @@ class MilvusConnection:
         root = project_root+global_varb.project_root+global_varb.prd_storage
         prd_paths = file_util.get_all_sub_path(root)
         return [prd_name.split(global_varb.prd_storage)[1].split("/")[1].strip("/") for prd_name in prd_paths ]
-
-
-if __name__ == "__main__":
-    print(MilvusConnection.get_connection_list())
-
-
