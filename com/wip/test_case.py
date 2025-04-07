@@ -1,4 +1,4 @@
-from lib.wip.common_wip import CommonWip
+from com.wip.common_wip import CommonWip
 
 
 class TestCase(CommonWip):
