@@ -23,4 +23,6 @@ pip install -r requirements.txt
 
 <b>util</b> util
 
+<b>com</b> 通用组件
+
 # 技术支持
