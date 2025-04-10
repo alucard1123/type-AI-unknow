@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 
-from project.type_AI_unknow.rag.milvus_tool import save_docx_to_milvus, search_data_from_milvus
-from project.type_AI_unknow.rag.model_tool import rag_query, testcase_query
+from rag.milvus_tool import save_docx_to_milvus, search_data_from_milvus
+from rag.model_tool import rag_query, testcase_query
 
 # 创建一个蓝图对象
 api_bp = Blueprint('api', __name__, url_prefix='/api')

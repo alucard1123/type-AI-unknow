@@ -4,7 +4,10 @@ from sentence_transformers import SentenceTransformer
 
 
 collection_name = "rag_collection"
-transformer_model_path = 'C:/Users/yulong/Desktop/bert/bert-master/project/type_AI_unknow/lib/all-MiniLM-L6-v2'
+# 本地用
+# transformer_model_path = 'C:/Users/yulong/Desktop/bert/bert-master/project/type_AI_unknow/lib/all-MiniLM-L6-v2'
+# docker用
+transformer_model_path = '/app/models/all-MiniLM-L6-v2'
 
 #######################向量数据库操作###########################################
 def save_data_to_milvus(raw_data:list,subject):
@@ -79,13 +82,36 @@ def search_data_from_milvus(query_data, filter='', output_fields=None, limit=3):
 def save_docx_to_milvus(docx_path,subject):
     # 从 DOCX 文件中读取文本内容
     raw_data = read_docx(docx_path)
-    save_data_to_milvus(raw_data,subject)
+    print(raw_data)
+    # save_data_to_milvus(raw_data,subject)
 
 
+# def read_docx(file_path):
+#     document = Document(file_path)
+#     full_text = []
+#     for para in document.paragraphs:
+#         if para.text.strip():  # 只添加非空段落
+#             full_text.append(para.text)
+#     return full_text
 def read_docx(file_path):
+    print(file_path)
     document = Document(file_path)
-    full_text = []
+    full_content = []
+
+    # 读取段落内容
     for para in document.paragraphs:
         if para.text.strip():  # 只添加非空段落
-            full_text.append(para.text)
-    return full_text
+            full_content.append(para.text)
+
+    # 读取表格内容
+    for table in document.tables:
+        for row in table.rows:
+            row_data = []
+            for cell in row.cells:
+                # 去除单元格内的多余空白
+                cell_text = cell.text.strip()
+                row_data.append(cell_text)
+            # 将表格的每一行作为一个字符串（用制表符分隔）
+            full_content.append("\t".join(row_data))
+
+    return full_content

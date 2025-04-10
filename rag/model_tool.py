@@ -1,5 +1,5 @@
 from flask import current_app
-from project.type_AI_unknow.rag.milvus_tool import search_data_from_milvus
+from rag.milvus_tool import search_data_from_milvus
 
 
 # 构造提示词（Prompt）
